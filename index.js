@@ -22,6 +22,7 @@ async function run(){
         const productCollection = client.db("manufacturer_website").collection("products");
         const reviewCollection = client.db("manufacturer_website").collection("reviews");
         const orderCollection = client.db("manufacturer_website").collection("orders");
+        const userCollection = client.db("manufacturer_website").collection("users");
 
 
         app.get('/product', async(req, res) => {
@@ -66,10 +67,22 @@ async function run(){
             res.send(result);
         });
 
-        app.delete('/delete/:id', async(req, res) => {
+        app.delete('/order/:id', async(req, res) => {
             const id = req.params.id;
             const query = {_id:ObjectId(id)};
             const result = await orderCollection.deleteOne(query);
+            res.send(result);
+        });
+
+        app.put('/user/:email', async(req, res) => {
+            const email = req.params.email;
+            const user = req.body;
+            const filter = {email: email};
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: user,
+              };
+            const result = await userCollection.updateOne(filter, updateDoc, options);
             res.send(result);
         })
 
