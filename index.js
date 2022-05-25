@@ -46,6 +46,12 @@ async function run(){
             res.send(reviews);
         });
 
+        app.post('/review', async(req, res) => {
+            const review = req.body;
+            const result = await reviewCollection.insertOne(review);
+            res.send(result);
+        })
+
         app.get('/order', async(req, res) => {
             const email = req.query.email;
             const query = {email: email};
