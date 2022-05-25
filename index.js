@@ -21,6 +21,7 @@ async function run(){
         await client.connect();
         const productCollection = client.db("manufacturer_website").collection("products");
         const reviewCollection = client.db("manufacturer_website").collection("reviews");
+        const orderCollection = client.db("manufacturer_website").collection("orders");
 
 
         app.get('/product', async(req, res) => {
@@ -44,6 +45,12 @@ async function run(){
             const reviews = await cursor.toArray();
             res.send(reviews);
         });
+
+        app.post('/order', async(req, res) => {
+            const order = req.body;
+            const result = await orderCollection.insertOne(order);
+            res.send(result);
+        })
         
     }
     finally{
