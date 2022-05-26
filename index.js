@@ -54,6 +54,12 @@ async function run(){
             const query = {_id:ObjectId(id)};
             const result = await productCollection.findOne(query);
             res.send(result);
+        });
+
+        app.post('/product', verifyJWT, async(req, res) => {
+            const product = req.body;
+            const result = await productCollection.insertOne(product);
+            res.send(result);
         })
 
 
