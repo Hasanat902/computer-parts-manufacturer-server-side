@@ -35,7 +35,7 @@ function verifyJWT(req, res, next){
 
 async function run(){
     try{
-        await client.connect();
+        // await client.connect();
         const productCollection = client.db("manufacturer_website").collection("products");
         const reviewCollection = client.db("manufacturer_website").collection("reviews");
         const orderCollection = client.db("manufacturer_website").collection("orders");
